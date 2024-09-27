@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        .btn-add, .btn-delete {
+            margin: 5px;
+        }
+      
+        body{
+            background-color:#caf0f8 ;
+            border: solid #003366 3px ;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+        .divider{
+            padding-top: 10%;
+            padding-bottom: 10%;
+            margin-bottom: 10%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="mt-4" style="color: darkblue;"><u>ADMIN APPOINTMENT BOOKING</u> </h1>
+        <div id="calendar"></div>
+        <button class="btn btn-primary btn-add" onclick="addAppointment()">Add Appointment</button>
+        <button class="btn btn-danger btn-delete" onclick="deleteAppointment()">Delete Appointment</button>
+    </div>
+
+    <!-- Modal for Adding/Editing Appointments -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appointmentModalLabel">Add/Edit Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="appointmentForm">
+                        <div class="form-group">
+                            <label for="patientName">Patient Name</label>
+                            <input type="text" class="form-control" id="patientName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="doctorName">Doctor Name</label>
+                            <input type="text" class="form-control" id="doctorName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="appointmentDate">Date</label>
+                            <input type="date" class="form-control" id="appointmentDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reason">Reason for Visit</label>
+                            <textarea class="form-control" id="reason" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                editable: true,
+                events: [
+                    {
+                        title: 'John Doe - Dr. Smith',
+                        start: '2024-09-27',
+                        description: 'Routine check-up'
+                    },
+                    {
+                        title: 'Jane Roe - Dr. Brown',
+                        start: '2024-09-28',
+                        description: 'Follow-up visit'
+                    },
+                    {
+                        title: 'Sam Green - Dr. White',
+                        start: '2024-09-29',
+                        description: 'Consultation'
+                    }
+                ],
+                eventClick: function(event) {
+                    $('#patientName').val(event.title.split(' - ')[0]);
+                    $('#doctorName').val(event.title.split(' - ')[1]);
+                    $('#appointmentDate').val(moment(event.start).format('YYYY-MM-DD'));
+                    $('#reason').val(event.description);
+                    $('#appointmentModal').modal('show');
+                }
+            });
+
+            $('#appointmentForm').on('submit', function(e) {
+                e.preventDefault();
+                var title = $('#patientName').val() + ' - ' + $('#doctorName').val();
+                var start = $('#appointmentDate').val();
+                var description = $('#reason').val();
+                $('#calendar').fullCalendar('renderEvent', {
+                    title: title,
+                    start: start,
+                    description: description
+                }, true);
+                $('#appointmentModal').modal('hide');
+            });
+        });
+
+        function addAppointment() {
+            $('#appointmentModal').modal('show');
+        }
+
+        function deleteAppointment() {
+            var event = $('#calendar').fullCalendar('clientEvents')[0];
+            $('#calendar').fullCalendar('removeEvents', event._id);
+        }
+    </script>
+    <section class="divider">
+
+    </section>
+    <footer class="footer">
+        <a href="home.html">Home</a>
+    </footer>
+</body>
+</html>

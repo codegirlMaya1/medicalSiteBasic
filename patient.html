@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{
+            background-color: #caf0f8 ;
+        }
+       
+        .footer {
+            background-color: #003366;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+           
+    </style>
+</head>
+<body>
+    
+<div class="container mt-5">
+    <h2 style="color: darkblue;"><u>PATIENT MANAGEMENT</u></h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="patientTable">
+            <!-- Example Patients -->
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>30</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" onclick="editPatient(this)">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deletePatient(this)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>25</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" onclick="editPatient(this)">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deletePatient(this)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Emily Johnson</td>
+                <td>40</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" onclick="editPatient(this)">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deletePatient(this)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" onclick="addPatient()">Add Patient</button>
+</div>
+
+<!-- Modal for Add/Edit Patient -->
+<div class="modal fade" id="patientModal" tabindex="-1" aria-labelledby="patientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="patientModalLabel">Add/Edit Patient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="patientForm">
+                    <div class="form-group">
+                        <label for="patientName">Name</label>
+                        <input type="text" class="form-control" id="patientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientAge">Age</label>
+                        <input type="number" class="form-control" id="patientAge" required>
+                    </div>
+                    <input type="hidden" id="patientId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="savePatient()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function addPatient() {
+        $('#patientId').val('');
+        $('#patientName').val('');
+        $('#patientAge').val('');
+        $('#patientModal').modal('show');
+    }
+
+    function editPatient(button) {
+        var row = $(button).closest('tr');
+        var id = row.find('td:eq(0)').text();
+        var name = row.find('td:eq(1)').text();
+        var age = row.find('td:eq(2)').text();
+
+        $('#patientId').val(id);
+        $('#patientName').val(name);
+        $('#patientAge').val(age);
+        $('#patientModal').modal('show');
+    }
+
+    function savePatient() {
+        var id = $('#patientId').val();
+        var name = $('#patientName').val();
+        var age = $('#patientAge').val();
+
+        if (id) {
+            // Update existing patient
+            var row = $('#patientTable').find('tr:contains(' + id + ')');
+            row.find('td:eq(1)').text(name);
+            row.find('td:eq(2)').text(age);
+        } else {
+            // Add new patient
+            var newId = $('#patientTable tr').length + 1;
+            $('#patientTable').append('<tr><td>' + newId + '</td><td>' + name + '</td><td>' + age + '</td><td><button class="btn btn-warning btn-sm" onclick="editPatient(this)">Edit</button> <button class="btn btn-danger btn-sm" onclick="deletePatient(this)">Delete</button></td></tr>');
+        }
+
+        $('#patientModal').modal('hide');
+    }
+
+    function deletePatient(button) {
+        $(button).closest('tr').remove();
+    }
+</script>
+<footer class="footer">
+    <a href="home.html">Home</a>
+</footer>
+</body>
+</html>
+ 

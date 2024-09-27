@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Home Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://th.bing.com/th/id/OIP.fqp_No0q3XKCBClHtVxHvwHaE8?w=270&h=180&c=7&r=0&o=5&pid=1.7') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .card-title{
+            color: #003366;
+        }
+        .navbar a {
+            color: white !important;
+        }
+        .card {
+            margin: 20px;
+        }
+        .bottom{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;         
+        }
+     
+@keyframes popUp {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+</style>
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="MYWEBImage.jpg" class="new"></a>
+       
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="patient.html">Patient Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="supplies.html">Order Supplies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="appointment.html">Appointment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="requests.html">Requests</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cards Section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="data:image/jpeg;base64,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 " class="card-img-top" alt="Logo 1">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: steelblue;">Admin HomePage</h5>
+                        <p class="card-text"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum ipsam, possimus natus nam aut ipsa qui voluptate a, sequi tempora, odio dicta modi repellendus ab nihil itaque doloribus delectus saepe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://th.bing.com/th/id/OIP.158rUML-wGP7-oraXH_wAgHaHa?w=169&h=180&c=7&r=0&o=5&pid=1.7 " class="card-img-top" alt="Logo 2">
+                    <div class="card-body">
+                        <h5 class="card-title" style=" color: steelblue ;">Health DataBase Information</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo similique nulla expedita eum inventore enim laborum repellat odit vel itaque velit, quod quam et ex saepe, soluta praesentium facere vitae.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src=" https://th.bing.com/th/id/OIP.YN7aom1ShbC-gz-_kyOXVQHaHa?w=158&h=180&c=7&r=0&o=5&pid=1.7 " class="card-img-top" alt="Logo 3">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: steelblue ;">Reports</h5>
+                        <p class="card-text"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet quos vel id quo corporis sit corrupti dolores, eius voluptate, officiis perferendis. Omnis rerum, quaerat laboriosam rem explicabo quos mollitia provident.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://th.bing.com/th/id/OIP.90v4Ez3oTUsg2h7fHmLfbgHaHa?w=169&h=180&c=7&r=0&o=5&pid=1.7 " class="card-img-top" alt="Logo 4">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color:  steelblue;">Requests</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, obcaecati sunt perspiciatis aliquam commodi, nemo non quia expedita esse voluptate consectetur distinctio nulla! Tenetur beatae magnam dolores ducimus? Officiis, libero.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <footer style="background-color: #003366; color: white; padding: 20px; text-align: center;" class="bottom">
+        <button id="chatbotButton" style="position: fixed; bottom: 20px; right: 20px; background-color: #003366; color: white; border-radius: 50%; width: 60px; height: 60px; border: none; font-size: 24px;">
+            💬
+          </button>
+          
+          
+        <p>© 2024 Basic Webpage All rights reserved.</p>
+      </footer>
+   
+    
+</body>
+</html>

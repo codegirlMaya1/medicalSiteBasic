@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Ticket System </title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{
+            background-color:#caf0f8 ;
+           
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+  
+    <div class="container mt-5">
+        <h1 class="mb-4"style="color: darkblue;"><u>Ticket System </u></h1>
+        <div class="form-group">
+            <input type="text" id="ticketInput" class="form-control" placeholder="Enter new ticket">
+            <button class="btn btn-primary mt-2" onclick="addTicket()">Add Ticket</button>
+        </div>
+        <ul class="list-group" id="ticketList"></ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let tickets = [
+            { id: 1, text: 'Fix bug in user login', completed: false },
+            { id: 2, text: 'Update user profile page', completed: false }
+        ];
+
+        function renderTickets() {
+            const ticketList = document.getElementById('ticketList');
+            ticketList.innerHTML = '';
+            tickets.forEach(ticket => {
+                const ticketItem = document.createElement('li');
+                ticketItem.className = `list-group-item d-flex justify-content-between align-items-center ${ticket.completed ? 'list-group-item-success' : ''}`;
+                ticketItem.innerHTML = `
+                    ${ticket.text}
+                    <div>
+                        <button class="btn btn-success btn-sm mr-2" onclick="markCompleted(${ticket.id})">Complete</button>
+                    </div>
+                `;
+                ticketList.appendChild(ticketItem);
+            });
+        }
+
+        function addTicket() {
+            const ticketInput = document.getElementById('ticketInput');
+            const newTicket = {
+                id: tickets.length + 1,
+                text: ticketInput.value,
+                completed: false
+            };
+            tickets.push(newTicket);
+            ticketInput.value = '';
+            renderTickets();
+        }
+
+        function markCompleted(id) {
+            const ticket = tickets.find(ticket => ticket.id === id);
+            ticket.completed = true;
+            renderTickets();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderTickets);
+    </script>
+    <footer class="footer">
+        <a href="home.html">Home</a>
+    </footer>
+</body>
+</html>

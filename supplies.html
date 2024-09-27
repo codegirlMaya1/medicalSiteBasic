@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Supplies Inventory</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #caf0f8;
+        }
+        .vibrant {
+            color: #fff;
+            background-color: #007bff;
+        }
+        .vibrant:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container mt-5">
+        <h1 class="text-center mb-4" style="color: darkblue;"><u>HOSPITAL STOCKROOM INVENTORY</u></h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Order Supplies</h3>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" class="form-control" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" required>
+                    </div>
+                    <button type="submit" class="btn vibrant">Order</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Inventory</h3>
+                <ul id="inventoryList" class="list-group">
+                    <!-- Inventory items will be added here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const inventory = [
+            { name: 'Gloves', quantity: 100 },
+            { name: 'Masks', quantity: 200 },
+            { name: 'Sanitizers', quantity: 150 }
+        ];
+
+        function renderInventory() {
+            const inventoryList = $('#inventoryList');
+            inventoryList.empty();
+            inventory.forEach(item => {
+                inventoryList.append(`<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${item.name}
+                    <span class="badge badge-primary badge-pill">${item.quantity}</span>
+                </li>`);
+            });
+        }
+
+        $('#orderForm').on('submit', function(event) {
+            event.preventDefault();
+            const productName = $('#productName').val();
+            const quantity = parseInt($('#quantity').val());
+            const existingProduct = inventory.find(item => item.name === productName);
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                inventory.push({ name: productName, quantity });
+            }
+            renderInventory();
+            $('#orderForm')[0].reset();
+        });
+
+        renderInventory();
+
+    </script>
+    <section class="divider">
+
+    </section>
+    <footer class="footer">
+        <a href="home.html">Home</a>
+    </footer>
+</body>
+</html>
